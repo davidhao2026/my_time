@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日历工具</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="calendar-wrapper">
+            <div class="calendar-header">
+                <button class="nav-btn prev-btn" id="prevBtn">← 上一月</button>
+                <div class="month-year" id="monthYear"></div>
+                <button class="nav-btn next-btn" id="nextBtn">下一月 →</button>
+            </div>
+
+            <div class="calendar-controls">
+                <input type="month" id="monthPicker" class="month-picker">
+                <button class="today-btn" id="todayBtn">回到今天</button>
+            </div>
+
+            <div class="weekdays">
+                <div class="weekday">日</div>
+                <div class="weekday">一</div>
+                <div class="weekday">二</div>
+                <div class="weekday">三</div>
+                <div class="weekday">四</div>
+                <div class="weekday">五</div>
+                <div class="weekday">六</div>
+            </div>
+
+            <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
+
+        <div class="holiday-list">
+            <h3>📌 本月假日</h3>
+            <ul id="holidayList"></ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

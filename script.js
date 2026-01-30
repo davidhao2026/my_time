@@ -35,6 +35,7 @@ class Calendar {
     constructor() {
         this.currentDate = new Date();
         this.selectedDate = null;
+        this.selectedDateDisplay = document.getElementById('selectedDateDisplay');
         this.init();
     }
 
@@ -135,6 +136,7 @@ class Calendar {
                 document.querySelectorAll('.day.selected').forEach(d => d.classList.remove('selected'));
                 dayElement.classList.add('selected');
                 this.selectedDate = new Date(year, month, day);
+                this.updateSelectedDateDisplay();
             });
 
             calendarGrid.appendChild(dayElement);
@@ -185,6 +187,28 @@ class Calendar {
                 : `${dates[0]}-${dates[dates.length - 1]}日`;
             return `<li><span>${name}</span>：${dateRange}</li>`;
         }).join('');
+    }
+
+    updateSelectedDateDisplay() {
+        if (!this.selectedDate) {
+            this.selectedDateDisplay.textContent = '请点击日期查看详情';
+            return;
+        }
+
+        const year = this.selectedDate.getFullYear();
+        const month = this.selectedDate.getMonth() + 1;
+        const day = this.selectedDate.getDate();
+        const weekday = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'][this.selectedDate.getDay()];
+
+        const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        const holiday = holidays[dateStr];
+
+        let displayText = `${year}年${month}月${day}日 ${weekday}`;
+        if (holiday) {
+            displayText += `\n🎉 ${holiday.name}`;
+        }
+
+        this.selectedDateDisplay.textContent = displayText;
     }
 }
 

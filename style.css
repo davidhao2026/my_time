@@ -1,14 +1,190 @@
 /* Updated CSS with correct class selectors */
 
-/* Existing CSS rules with errors */
-.day { /* some rules */ }
-.day:hover { /* some rules */ }
-.day.today { /* some rules */ }
-.day.selected { /* some rules */ }
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
 
-/* Corrected CSS rules */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 20px;
+}
 
-.day { /* some rules */ }
-.day:hover { /* some rules */ }
-.day.today { /* some rules */ }
-.day.selected { /* some rules */ }
+.calendar-wrapper {
+    flex: 1;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.nav-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.nav-btn:hover {
+    background: #0056b3;
+}
+
+.month-year {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.calendar-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.month-picker {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.today-btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.today-btn:hover {
+    background: #218838;
+}
+
+.weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.weekday {
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 5px;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+}
+
+.day:hover {
+    background: #e9ecef;
+}
+
+.day.current-month {
+    background: white;
+    border: 1px solid #dee2e6;
+}
+
+.day.other-month {
+    background: #f8f9fa;
+    color: #6c757d;
+}
+
+.day.today {
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+    font-weight: bold;
+}
+
+.day.selected {
+    background: #cce5ff;
+    border: 2px solid #007bff;
+}
+
+.day.holiday {
+    background: #f8d7da;
+    color: #721c24;
+    font-weight: bold;
+}
+
+.holiday-list {
+    width: 250px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.holiday-list h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.holiday-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.holiday-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.holiday-list li:last-child {
+    border-bottom: none;
+}
+
+.holiday-list span {
+    font-weight: bold;
+    color: #dc3545;
+}
+
+.selected-date-info {
+    width: 250px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.selected-date-info h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+#selectedDateDisplay {
+    color: #666;
+    line-height: 1.5;
+}

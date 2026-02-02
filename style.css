@@ -97,6 +97,7 @@ body {
 }
 
 .day {
+    position: relative;
     aspect-ratio: 1;
     display: flex;
     align-items: center;
@@ -187,4 +188,89 @@ body {
 #selectedDateDisplay {
     color: #666;
     line-height: 1.5;
+}
+
+/* Todo List Styles */
+.todo-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.todo-section h4 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    color: #666;
+}
+
+.todo-input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.todo-input-group input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.todo-input-group button {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.todo-input-group button:hover {
+    background: #218838;
+}
+
+.todo-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.todo-list li {
+    background: #f9f9f9;
+    padding: 8px 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+
+.todo-list li:hover {
+    background: #f0f0f0;
+}
+
+.delete-todo-btn {
+    color: #dc3545;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 0 5px;
+}
+
+.delete-todo-btn:hover {
+    color: #c82333;
+}
+
+.todo-indicator {
+    width: 6px;
+    height: 6px;
+    background-color: #28a745;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
 }

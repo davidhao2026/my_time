@@ -36,6 +36,7 @@ class Calendar {
         this.currentDate = new Date();
         this.selectedDate = null;
         this.selectedDateDisplay = document.getElementById('selectedDateDisplay');
+        this.todos = JSON.parse(localStorage.getItem('calendarTodos')) || {};
         this.init();
     }
 
@@ -50,6 +51,12 @@ class Calendar {
         document.getElementById('nextBtn').addEventListener('click', () => this.nextMonth());
         document.getElementById('todayBtn').addEventListener('click', () => this.goToToday());
         document.getElementById('monthPicker').addEventListener('change', (e) => this.jumpToMonth(e));
+        
+        // Todo List Listeners
+        document.getElementById('addTodoBtn').addEventListener('click', () => this.handleAddTodo());
+        document.getElementById('todoInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') this.handleAddTodo();
+        });
     }
 
     previousMonth() {
@@ -131,6 +138,13 @@ class Calendar {
                 dayElement.title = holidays[dateStr].name;
             }
 
+            // 标记待办事项
+            if (this.todos[dateStr] && this.todos[dateStr].length > 0) {
+                const todoIndicator = document.createElement('div');
+                todoIndicator.className = 'todo-indicator';
+                dayElement.appendChild(todoIndicator);
+            }
+
             // 添加点击事件
             dayElement.addEventListener('click', () => {
                 document.querySelectorAll('.day.selected').forEach(d => d.classList.remove('selected'));
@@ -190,8 +204,11 @@ class Calendar {
     }
 
     updateSelectedDateDisplay() {
+        const todoSection = document.getElementById('todoSection');
+        
         if (!this.selectedDate) {
             this.selectedDateDisplay.textContent = '请点击日期查看详情';
+            if (todoSection) todoSection.style.display = 'none';
             return;
         }
 
@@ -209,6 +226,76 @@ class Calendar {
         }
 
         this.selectedDateDisplay.textContent = displayText;
+        
+        // Update Todo List
+        if (todoSection) {
+            todoSection.style.display = 'block';
+            this.renderTodoList();
+        }
+    }
+
+    getSelectedDateStr() {
+        const year = this.selectedDate.getFullYear();
+        const month = String(this.selectedDate.getMonth() + 1).padStart(2, '0');
+        const day = String(this.selectedDate.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    renderTodoList() {
+        const dateStr = this.getSelectedDateStr();
+        const todos = this.todos[dateStr] || [];
+        const todoList = document.getElementById('todoList');
+        todoList.innerHTML = '';
+        
+        todos.forEach((todo, index) => {
+            const li = document.createElement('li');
+            const span = document.createElement('span');
+            span.textContent = todo;
+            
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-todo-btn';
+            deleteBtn.innerHTML = '&times;';
+            deleteBtn.title = '删除';
+            deleteBtn.onclick = () => this.deleteTodo(index);
+            
+            li.appendChild(span);
+            li.appendChild(deleteBtn);
+            todoList.appendChild(li);
+        });
+    }
+
+    handleAddTodo() {
+        const input = document.getElementById('todoInput');
+        const text = input.value.trim();
+        if (!text || !this.selectedDate) return;
+
+        const dateStr = this.getSelectedDateStr();
+        if (!this.todos[dateStr]) {
+            this.todos[dateStr] = [];
+        }
+        
+        this.todos[dateStr].push(text);
+        this.saveTodos();
+        this.renderTodoList();
+        this.renderCalendar(); // Refresh to show indicator
+        input.value = '';
+    }
+
+    deleteTodo(index) {
+        const dateStr = this.getSelectedDateStr();
+        if (this.todos[dateStr]) {
+            this.todos[dateStr].splice(index, 1);
+            if (this.todos[dateStr].length === 0) {
+                delete this.todos[dateStr];
+            }
+            this.saveTodos();
+            this.renderTodoList();
+            this.renderCalendar(); // Refresh to update indicator
+        }
+    }
+
+    saveTodos() {
+        localStorage.setItem('calendarTodos', JSON.stringify(this.todos));
     }
 }
 

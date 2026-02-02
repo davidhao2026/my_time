@@ -274,3 +274,13 @@ body {
     left: 50%;
     transform: translateX(-50%);
 }
+
+/* Footer Styles */
+.app-footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px 0;
+    color: #888;
+    font-size: 14px;
+    border-top: 1px solid #e0e0e0;
+}
